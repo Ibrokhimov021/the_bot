@@ -1,0 +1,6 @@
+#### Create user
+---- python manage.py createsuperuser
+
+   username --- profiuniversity
+   email   ---  profiuniversity@gmail.com
+   password --- profi2020
