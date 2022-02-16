@@ -7,13 +7,13 @@ from telegram.utils.request import Request
 
 
 
-TOKEN = "5209642990:AAGW37bnGZ_2SQwg48LJ8wqjmGt2N9ckZok"
+TOKEN = "5209642990:AAG4grx6evHWIx0sOTYmGFhvPQyQum2iRK0"
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        q = mq.MessageQueue(all_burst_limit=3, all_time_limit_ms=3000)
-        request = Request(con_pool_size=36)
+       q = mq.MessageQueue(all_burst_limit=30, all_time_limit_ms=1000, group_burst_limit=20, group_time_limit_ms=60000, exc_route=None, autostart=True)
+        request = Request(con_pool_size=10, connect_timeout=5.0, read_timeout=5.0)
         test_bot = MQBot(TOKEN, request=request, mqueue=q)
-        updater = Updater(bot=test_bot, use_context=True, workers=35)
+        updater = Updater(bot=test_bot, use_context=True, workers=32)
 
         dispatcher = updater.dispatcher
         dispatcher.add_handler(CommandHandler("start",start))

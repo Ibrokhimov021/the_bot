@@ -21,7 +21,7 @@ button=[
         ['📝Ariza qoldirish'],
         [
             '🏢Universitet haqida',
-            'Fakultetlar'
+            '📚Fakultetlar'
         ],
         [
             '💵Superkontrakt',
@@ -47,7 +47,7 @@ def ariza(update, context):
     text = update.message.text
     if text == "🏢Universitet haqida":
         university(update,context)
-    elif text == "Fakultetlar":
+    elif text == "📚Fakultetlar":
         fakultet(update, context)
     elif text == "☎️ Biz bilan aloqa":
         communication(update, context)
@@ -95,8 +95,6 @@ def ariza(update, context):
         context.bot.send_message(user.id,'Malumotlaringiz saqlandi', reply_markup=ReplyKeyboardMarkup(button, resize_keyboard=True,one_time_keyboard=True))
         
     elif text == "YO'Q" and state ==103:
-        context.bot.delete_message(chat_id = user.id,message_id=update.message.message_id-1)
-        context.bot.delete_message(chat_id = user.id,message_id=update.message.message_id)
         context.bot.send_message(user.id, "Ma'lumotlaringiz saqlanmadi", reply_markup=ReplyKeyboardMarkup(button, resize_keyboard=True,one_time_keyboard=True))
         
     else:
@@ -213,8 +211,6 @@ def communication(update, context):
 def kontrakt(update,context):
     super = Super.objects.all().first()
     text ='Super Kontrakt: '
-    text += f"{super['price']}"
+    text += super.price
     user = update.message.from_user
-    context.bot.delete_message(chat_id = user.id,message_id=update.message.message_id-1)
-    context.bot.delete_message(chat_id = user.id,message_id=update.message.message_id)
     context.bot.send_message(user.id, text,reply_markup = ReplyKeyboardMarkup(button, resize_keyboard=True,one_time_keyboard=True))
